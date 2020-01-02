@@ -57,7 +57,7 @@ namespace LeagueOFFLINE
 
         public string GetLog()
         {
-            var defaultPath = Path.Combine(GetLOLPath(), @"Logs\LeagueClient Logs"); ;
+            var defaultPath = Path.Combine(lolPath, @"Logs\LeagueClient Logs"); ;
             var dir = Directory.GetFiles(defaultPath, "*_LeagueClient.log");
             var mlog = "";
             var ltime = TimeSpan.MaxValue;
