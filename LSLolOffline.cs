@@ -68,6 +68,9 @@ namespace LeagueOFFLINE
             {
                 Globals.lc.Init();
                 Globals.fw.chat_ip = Globals.lc.GetIPFromDomain();
+
+                Globals.fw.test();
+
                 pathText.Text = Globals.lc.lolPath;
                 UpdateState();
 

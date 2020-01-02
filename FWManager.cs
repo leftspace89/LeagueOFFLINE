@@ -9,134 +9,12 @@ using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Net;
+using System.Windows.Forms;
 
 namespace LeagueOFFLINE
 {
 
-    public  class LChatHelper
-    {
-
-        public string lolPath = @"C:\Riot Games\League of Legends\";
-        public string GetLOLPath()
-        {
-            try
-            {
-                var p = Process.GetProcessesByName("LeagueClient").FirstOrDefault();
-                if (p != null)
-                {
-                    return Path.GetDirectoryName(p.MainModule.FileName);
-                }
-            }
-
-            catch(Exception ex)
-            {
-                LDebug.WriteLine(ex.ToString());
-                    
-            }
-
-            return string.Empty;
-        }
-
-
-        public void Init()
-        {
-            if(!Directory.Exists(lolPath))
-            {
-                LDebug.WriteLine("Trying get LOL Path");
-                lolPath = GetLOLPath();
-            }
-
-            if (!Directory.Exists(lolPath))
-            {
-                LDebug.WriteLine("can't get LOL Path");
-            }
-         }
-
-        public string GetLog()
-        {
-            var defaultPath = Path.Combine(GetLOLPath(), @"Logs\LeagueClient Logs"); ;
-            var dir = Directory.GetFiles(defaultPath, "*_LeagueClient.log");
-            var mlog = "";
-            var ltime = TimeSpan.MaxValue;
-            foreach(var d in dir)
-            {
-                var curDelta = ltime.Subtract(new TimeSpan(File.GetLastAccessTime(d).Ticks));
-                if (curDelta< ltime)
-                {
-                    ltime = curDelta;
-                    mlog = d;
-                }
-            }
-            if (string.IsNullOrEmpty(mlog))
-                throw new ArgumentException("empty string", "mlog");
-
-            return mlog;
-        }
-        public string ReadClientLog()
-        {
-            try
-            {
-                var path = GetLog();
-                using (FileStream fileStream = new FileStream(
-                    path,
-                    FileMode.Open,
-                    FileAccess.Read,
-                    FileShare.ReadWrite))
-                {
-                    using (StreamReader streamReader = new StreamReader(fileStream))
-                    {
-                        return streamReader.ReadToEnd();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LDebug.WriteLine(ex.ToString());
-            }
-
-            throw new ArgumentException("failed to read client log", "streamReader");
-
-        }
-        public string GetIPFromDomain()
-        {
-            try
-            {
-                var dns = Dns.GetHostAddresses(GetChatDomain()).FirstOrDefault();
-                if (dns != null)
-                    return dns.ToString();
-            }
-            catch (Exception ex)
-            {
-                LDebug.WriteLine(ex.ToString());
-            }
-
-            throw new ArgumentException("ip null", "ping");
-        }
-        public string GetChatDomain()
-        {
-            try
-            {
-                string pattern = @"rcp-be-lol-chat\| Chat configured to (.*):5223";
-                var content = ReadClientLog().Split(new string[] { Environment.NewLine},StringSplitOptions.RemoveEmptyEntries).Where(x => x.Contains("rcp-be-lol-chat"));
-                foreach(var s in content)
-                {
-                    var IPRegex = Regex.Match(s, pattern);
-                    if(IPRegex.Success)
-                    {
-                        return IPRegex.Groups[1].Value.ToString();
-                    }
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                LDebug.WriteLine(ex.ToString());
-            }
-
-            throw new ArgumentException("failed to read client log", "IPRegex");
-        }
-    }
- 
+   
 
     public  class FWManager
     {
@@ -144,7 +22,7 @@ namespace LeagueOFFLINE
 
 
         public string chat_ip = string.Empty;
-        public void RunAction(string strCmdText)
+        public string RunAction(string strCmdText)
         {
        
             ProcessStartInfo psi = new ProcessStartInfo("netsh.exe", strCmdText);
@@ -152,16 +30,23 @@ namespace LeagueOFFLINE
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
 
-
+            var sb = new StringBuilder();
             try
             {
                 var  p = Process.Start(psi);
+                while (!p.StandardOutput.EndOfStream)
+                {
+                    string line = p.StandardOutput.ReadLine();
+                   
+                    sb.AppendLine(line);
+                }
                 p.WaitForExit();
             }
             catch (Exception ex)
             {
                 LDebug.WriteLine(ex.Message);
             }
+            return sb.ToString();
         }
 
         public void blockLOL()
@@ -170,7 +55,15 @@ namespace LeagueOFFLINE
             {
                 throw new ArgumentException("empty or null", "chat_ip");
             }
-               
+
+            var str = RunAction("advfirewall firewall show rule name=all");
+
+            if (str.Contains("LeftSpace_LolOfflineMode"))
+            {
+                LDebug.WriteLine("Chat endpoint already blocked");
+                return;
+            }
+
 
             string strCmdText = $"advfirewall firewall add rule name=\"LeftSpace_LolOfflineMode\" dir=out remoteip={chat_ip} protocol=any action=block";
             RunAction(strCmdText);
@@ -181,13 +74,25 @@ namespace LeagueOFFLINE
             RunAction(strCmdText);
         }
 
+        public void test()
+        {
+            var str = RunAction("advfirewall show allprofiles state");
 
+            if (str.Contains("OFF"))
+            {
+                LDebug.WriteLine("Firewall is not enabled");
+                MessageBox.Show("Firewall is not enabled please enable your firewall");
+                Environment.Exit(0);
+                return;
+            }
+        }
         public bool isBlocked()
         {
             try
             {
                 var p = new Ping();
                 var r = p.Send(Globals.lc.GetIPFromDomain());
+                
                 if (r.Status != IPStatus.Success)
                     return true;
             }

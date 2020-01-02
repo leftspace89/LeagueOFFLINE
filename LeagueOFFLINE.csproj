@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="FWManager.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="LChatHelper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LSLolOffline.cs">
       <SubType>Form</SubType>
