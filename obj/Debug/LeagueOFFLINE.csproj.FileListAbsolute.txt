@@ -1,0 +1,10 @@
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\bin\Debug\LeagueOFFLINE.exe.config
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\bin\Debug\LeagueOFFLINE.exe
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\bin\Debug\LeagueOFFLINE.pdb
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.LSLolOffline.resources
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.Properties.Resources.resources
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.csproj.GenerateResource.cache
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.csproj.CoreCompileInputs.cache
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.exe
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.pdb
+C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\obj\Debug\LeagueOFFLINE.csprojAssemblyReference.cache

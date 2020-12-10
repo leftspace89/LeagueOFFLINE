@@ -22,6 +22,8 @@ namespace LeagueOFFLINE
 
 
         public string chat_ip = string.Empty;
+        public string chat_dom = string.Empty;
+
         public string RunAction(string strCmdText)
         {
        
@@ -60,8 +62,10 @@ namespace LeagueOFFLINE
 
             if (str.Contains("LeftSpace_LolOfflineMode"))
             {
+
                 LDebug.WriteLine("Chat endpoint already blocked");
-                return;
+                unblockLOL();
+                
             }
 
 

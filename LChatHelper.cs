@@ -14,6 +14,21 @@ namespace LeagueOFFLINE
     public class LChatHelper
     {
 
+        public static List<string> servers = new List<string>() 
+        {
+            "tr1.chat.si.riotgames.com",
+            "br.chat.si.riotgames.com",
+            "eun1.chat.si.riotgames.com",
+            "euw1.chat.si.riotgames.com",
+            "jp1.chat.si.riotgames.com",
+            "la1.chat.si.riotgames.com",
+            "la2.chat.si.riotgames.com",
+            "na2.chat.si.riotgames.com",
+            "oc1.chat.si.riotgames.com",
+            "ru1.chat.si.riotgames.com",
+            "na2.chat.si.riotgames.com"
+        };
+
         public string lolPath = @"C:\Riot Games\League of Legends\";
         public string GetLOLPath()
         {
@@ -43,6 +58,7 @@ namespace LeagueOFFLINE
 
         public void Init()
         {
+            lolPath = GetLOLPath();
             if (!Directory.Exists(lolPath))
             {
                 LDebug.WriteLine("Trying get LOL Path");
@@ -55,56 +71,12 @@ namespace LeagueOFFLINE
             }
         }
 
-        public string GetLog()
-        {
-            var defaultPath = Path.Combine(lolPath, @"Logs\LeagueClient Logs"); ;
-            var dir = Directory.GetFiles(defaultPath, "*_LeagueClient.log");
-            var mlog = "";
-            var ltime = TimeSpan.MaxValue;
-            foreach (var d in dir)
-            {
-                var curDelta = ltime.Subtract(new TimeSpan(File.GetLastAccessTime(d).Ticks));
-                if (curDelta < ltime)
-                {
-                    ltime = curDelta;
-                    mlog = d;
-                }
-            }
-            if (string.IsNullOrEmpty(mlog))
-                throw new ArgumentException("empty string", "mlog");
-
-            return mlog;
-        }
-        public string ReadClientLog()
-        {
-            try
-            {
-                var path = GetLog();
-                using (FileStream fileStream = new FileStream(
-                    path,
-                    FileMode.Open,
-                    FileAccess.Read,
-                    FileShare.ReadWrite))
-                {
-                    using (StreamReader streamReader = new StreamReader(fileStream))
-                    {
-                        return streamReader.ReadToEnd();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LDebug.WriteLine(ex.ToString());
-            }
-
-            throw new ArgumentException("failed to read client log", "streamReader");
-
-        }
+      
         public string GetIPFromDomain()
         {
             try
             {
-                var dns = Dns.GetHostAddresses(GetChatDomain()).FirstOrDefault();
+                var dns = Dns.GetHostAddresses(Globals.fw.chat_dom).FirstOrDefault();
                 if (dns != null)
                     return dns.ToString();
             }
@@ -115,29 +87,7 @@ namespace LeagueOFFLINE
 
             throw new ArgumentException("ip null", "ping");
         }
-        public string GetChatDomain()
-        {
-            try
-            {
-                string pattern = @"rcp-be-lol-chat\| Chat configured to (.*):5223";
-                var content = ReadClientLog().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Where(x => x.Contains("rcp-be-lol-chat"));
-                foreach (var s in content)
-                {
-                    var IPRegex = Regex.Match(s, pattern);
-                    if (IPRegex.Success)
-                    {
-                        return IPRegex.Groups[1].Value.ToString();
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LDebug.WriteLine(ex.ToString());
-            }
-
-            throw new ArgumentException("failed to read client log", "IPRegex");
-        }
+     
     }
 
 }

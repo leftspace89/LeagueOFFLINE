@@ -24,8 +24,8 @@ namespace LeagueOFFLINE
             try
             {
 
-       
-                if (Globals.fw.isBlocked())
+                var isBlocked = Globals.fw.isBlocked();
+                if (isBlocked)
                 {
                     Globals.fw.unblockLOL();
                 }
@@ -33,9 +33,9 @@ namespace LeagueOFFLINE
                 {
                     Globals.fw.blockLOL();
                 }
+           
 
-                UpdateState();
-
+                UpdateState(!isBlocked);
 
             }
             catch (Exception ex)
@@ -44,42 +44,55 @@ namespace LeagueOFFLINE
             }
         }
 
-        private void UpdateState()
-        {
-
-          
-            if (Globals.fw.isBlocked())
-            {
-                switchButton.Text = "Switch to Online";
-                toolStripStatusLabel1.Text = "[OFFLINE MODE]";
-                statusStrip1.ForeColor = Color.DarkRed;
-            }
-            else
-            {
-                switchButton.Text = "Switch to Offline";
-                toolStripStatusLabel1.Text = "[ONLINE MODE]";
-                statusStrip1.ForeColor = Color.DarkGreen;
-         
-            }
-        }
+     
         private void LSLolOffline_Load(object sender, EventArgs e)
         {
             try
             {
+                srvbox.SelectedIndex = 0;
+
                 Globals.lc.Init();
                 Globals.fw.chat_ip = Globals.lc.GetIPFromDomain();
 
                 Globals.fw.test();
-
-                pathText.Text = Globals.lc.lolPath;
-                UpdateState();
-
+       
 
             }
            catch(Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private void pathText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private  void UpdateState(bool isBlocked)
+        {
+            if (isBlocked)
+            {
+                switchButton.Text = "Switch to Online";
+            } 
+            else
+            {
+                switchButton.Text = "Switch to Offline";
+            }
+
+            srvbox.ForeColor = isBlocked ? System.Drawing.Color.Red : System.Drawing.Color.Green;
+        }
+        private void srvbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            Globals.fw.chat_dom = srvbox.Items[srvbox.SelectedIndex].ToString();
+
+            var isBlocked = Globals.fw.isBlocked();
+            srvLabel.Focus();
+            UpdateState(isBlocked);
+
+
+
         }
     }
 }

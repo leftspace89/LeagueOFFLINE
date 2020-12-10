@@ -28,86 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pathText = new System.Windows.Forms.TextBox();
-            this.lblPath = new System.Windows.Forms.Label();
             this.switchButton = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1.SuspendLayout();
+            this.srvLabel = new System.Windows.Forms.Label();
+            this.srvbox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // pathText
-            // 
-            this.pathText.Location = new System.Drawing.Point(50, 98);
-            this.pathText.Name = "pathText";
-            this.pathText.ReadOnly = true;
-            this.pathText.Size = new System.Drawing.Size(252, 20);
-            this.pathText.TabIndex = 0;
-            // 
-            // lblPath
-            // 
-            this.lblPath.AutoSize = true;
-            this.lblPath.Location = new System.Drawing.Point(12, 101);
-            this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(32, 13);
-            this.lblPath.TabIndex = 1;
-            this.lblPath.Text = "Path:";
             // 
             // switchButton
             // 
-            this.switchButton.Location = new System.Drawing.Point(68, 23);
+            this.switchButton.Location = new System.Drawing.Point(231, 12);
             this.switchButton.Name = "switchButton";
-            this.switchButton.Size = new System.Drawing.Size(173, 55);
+            this.switchButton.Size = new System.Drawing.Size(82, 44);
             this.switchButton.TabIndex = 2;
             this.switchButton.Text = "Switch Offline";
             this.switchButton.UseVisualStyleBackColor = true;
             this.switchButton.Click += new System.EventHandler(this.switchButton_Click);
             // 
-            // statusStrip1
+            // srvLabel
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 131);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(311, 22);
-            this.statusStrip1.TabIndex = 4;
-            this.statusStrip1.Text = "statusStrip1";
+            this.srvLabel.AutoSize = true;
+            this.srvLabel.Location = new System.Drawing.Point(12, 28);
+            this.srvLabel.Name = "srvLabel";
+            this.srvLabel.Size = new System.Drawing.Size(41, 13);
+            this.srvLabel.TabIndex = 3;
+            this.srvLabel.Text = "Server:";
             // 
-            // toolStripStatusLabel1
+            // srvbox
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(66, 17);
-            this.toolStripStatusLabel1.Text = "statusLabel";
+            this.srvbox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.srvbox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.srvbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.srvbox.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.srvbox.FormattingEnabled = true;
+            this.srvbox.Items.AddRange(new object[] {
+            "tr1.chat.si.riotgames.com",
+            "br.chat.si.riotgames.com",
+            "eun1.chat.si.riotgames.com",
+            "euw1.chat.si.riotgames.com",
+            "jp1.chat.si.riotgames.com",
+            "la1.chat.si.riotgames.com",
+            "la2.chat.si.riotgames.com",
+            "na2.chat.si.riotgames.com",
+            "oc1.chat.si.riotgames.com",
+            "ru1.chat.si.riotgames.com",
+            "na2.chat.si.riotgames.com"});
+            this.srvbox.Location = new System.Drawing.Point(59, 25);
+            this.srvbox.Name = "srvbox";
+            this.srvbox.Size = new System.Drawing.Size(158, 21);
+            this.srvbox.TabIndex = 4;
+            this.srvbox.SelectedIndexChanged += new System.EventHandler(this.srvbox_SelectedIndexChanged);
             // 
             // LSLolOffline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 153);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(325, 68);
+            this.Controls.Add(this.srvbox);
+            this.Controls.Add(this.srvLabel);
             this.Controls.Add(this.switchButton);
-            this.Controls.Add(this.lblPath);
-            this.Controls.Add(this.pathText);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "LSLolOffline";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LOFFLINE By LeftSpace";
             this.Load += new System.EventHandler(this.LSLolOffline_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox pathText;
-        private System.Windows.Forms.Label lblPath;
         private System.Windows.Forms.Button switchButton;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Label srvLabel;
+        private System.Windows.Forms.ComboBox srvbox;
     }
 }
 

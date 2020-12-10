@@ -1,0 +1,4 @@
+System.ArgumentException: failed to read client log
+Parametre adı: IPRegex
+   konum: LeagueOFFLINE.LChatHelper.GetChatDomain() C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\LChatHelper.cs içinde: satır 139
+   konum: LeagueOFFLINE.LChatHelper.GetIPFromDomain() C:\Users\ZwRaidMode\source\repos\LolOfflineMode\LolOfflineMode\LChatHelper.cs içinde: satır 107
