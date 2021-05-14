@@ -31,6 +31,7 @@
             this.switchButton = new System.Windows.Forms.Button();
             this.srvLabel = new System.Windows.Forms.Label();
             this.srvbox = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // switchButton
@@ -77,11 +78,22 @@
             this.srvbox.TabIndex = 4;
             this.srvbox.SelectedIndexChanged += new System.EventHandler(this.srvbox_SelectedIndexChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(319, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(82, 44);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Check";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // LSLolOffline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 68);
+            this.ClientSize = new System.Drawing.Size(421, 68);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.srvbox);
             this.Controls.Add(this.srvLabel);
             this.Controls.Add(this.switchButton);
@@ -100,6 +112,7 @@
         private System.Windows.Forms.Button switchButton;
         private System.Windows.Forms.Label srvLabel;
         private System.Windows.Forms.ComboBox srvbox;
+        private System.Windows.Forms.Button button1;
     }
 }
 

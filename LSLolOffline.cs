@@ -23,7 +23,8 @@ namespace LeagueOFFLINE
         {
             try
             {
-
+                Globals.fw.chat_dom = srvbox.Items[srvbox.SelectedIndex].ToString();
+                Globals.fw.chat_ip = Globals.lc.GetIPFromDomain();
                 var isBlocked = Globals.fw.isBlocked();
                 if (isBlocked)
                 {
@@ -85,14 +86,16 @@ namespace LeagueOFFLINE
         private void srvbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            Globals.fw.chat_dom = srvbox.Items[srvbox.SelectedIndex].ToString();
+         
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Globals.fw.chat_dom = srvbox.Items[srvbox.SelectedIndex].ToString();
+            Globals.fw.chat_ip = Globals.lc.GetIPFromDomain();
             var isBlocked = Globals.fw.isBlocked();
             srvLabel.Focus();
             UpdateState(isBlocked);
-
-
-
         }
     }
 }

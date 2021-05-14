@@ -60,7 +60,7 @@ namespace LeagueOFFLINE
 
             var str = RunAction("advfirewall firewall show rule name=all");
 
-            if (str.Contains("LeftSpace_LolOfflineMode"))
+            if (str.Contains("LeftSpace_LolOfflineMode"+ chat_dom))
             {
 
                 LDebug.WriteLine("Chat endpoint already blocked");
@@ -69,12 +69,12 @@ namespace LeagueOFFLINE
             }
 
 
-            string strCmdText = $"advfirewall firewall add rule name=\"LeftSpace_LolOfflineMode\" dir=out remoteip={chat_ip} protocol=any action=block";
+            string strCmdText = $"advfirewall firewall add rule name=\"LeftSpace_LolOfflineMode{chat_dom}\" dir=out remoteip={chat_ip} protocol=any action=block";
             RunAction(strCmdText);
         }
         public void unblockLOL()
         {
-            string strCmdText = $"advfirewall firewall delete rule name=\"LeftSpace_LolOfflineMode\"";
+            string strCmdText = $"advfirewall firewall delete rule name=\"LeftSpace_LolOfflineMode{chat_dom}\"";
             RunAction(strCmdText);
         }
 
